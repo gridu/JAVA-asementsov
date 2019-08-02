@@ -51,10 +51,10 @@ public class MyThreadPoolTest {
         Thread.sleep(DEFAULT_DELAY);
 
         //then
-        assertNotEquals("Messages are equal. Wrong behaviour", msg, outputStream.toString());
+        assertFalse("Output contains the message. Wrong behaviour", outputStream.toString().contains(msg));
         Thread.sleep(delay);
 
-        assertTrue("Messages are not equal. Wrong behaviour", outputStream.toString().contains(msg));
+        assertTrue("Output doesn't contain the message. Wrong behaviour", outputStream.toString().contains(msg));
     }
 
     //check there are no lost tasks and all threads work
@@ -65,7 +65,6 @@ public class MyThreadPoolTest {
         final int threadCount = 2;
         myThreadPool = new MyThreadPool(threadCount, queue);
         final OutputStream outputStream = new ByteArrayOutputStream();
-        final String msg = "Hi";
 
         final int tasksCount = 100;
         List<Runnable> runnableList = new ArrayList<>(tasksCount);
